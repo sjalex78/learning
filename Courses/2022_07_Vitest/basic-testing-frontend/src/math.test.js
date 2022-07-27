@@ -65,17 +65,17 @@ it('should throw an error if no values is passed into the function', () =>{
    const resultFn = () =>{
     add();
    };
-    expect(resultFn).toThrow();
+    expect(resultFn).toThrow(/is not iterable/);
     //add .not check for the opposite added before the .toThrow
 });
 
 it('throw an error if provide with multiple arguments instead of an array', () =>{
-    const num1 =1;
-    const num2 =2;
+    const num1 = 1;
+    const num2 = 2;
 
     const resultFn = () =>{
-        add(num1,num2);
+        add(num1, num2);
     };
-
-    expect(resultFn).toThrow();
+// toThrow can also be passed
+    expect(resultFn).toThrow(/is not iterable/);
 });
