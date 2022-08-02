@@ -54,6 +54,7 @@ Create your database
     gem 'capybara-inline-screenshot'
     gem 'selenium-webdriver'
     gem 'webdrivers'
+    gem 'rspec-example_steps'
   end
 ```
 
