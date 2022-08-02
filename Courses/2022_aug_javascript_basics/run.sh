@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-
-console.log("hi");
+const { interestRate } = require ('./constants');
+console.log(interestRate);
