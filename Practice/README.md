@@ -43,13 +43,11 @@ Create your database
  bin/rails db:create
  ```
 ## Adding rspec and capybara test framework
-```
-rails generate rspec:install
-```
 
-Add to the following files:
+1. Add the following gems:
 - **Gemfile**
 ```
+#rspec and capybara test suite
   group :test do
     gem 'capybara'
     gem 'rspec-rails'
@@ -58,7 +56,20 @@ Add to the following files:
     gem 'webdrivers'
   end
 ```
+
+2. run on command line
+```
+rails generate rspec:install
+```
+3. Add/ammend the following files:
+- **spec/rails_helper.rb**
+  - uncomment out on approx line 23
+```
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+```
+
 - **spec/support/capybara.rb**
+  - Create the following folder and file and add content to the capybara.rb file:
 ```
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -70,39 +81,48 @@ Capybara::Screenshot.register_driver(:selenium_chrome) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 ```
-- **spec/rails_helper.rb**
-  - uncomment out on approx line 23
-```
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-```
+**At this point we have a basic empty rails application with a test framework created.**
 
-At this point we have a basic empty rails application with a test framework created.
+# Create a exploration a blog environment to write a test
 
-
-## Create a exploration a blog environment to write a test
-
-At this point we want to create a temporary copy of the project and create a simple blog. Having separate terminal windows/tabs open for the main branch and a separate on for the worktree will enable simple moving between the environments. In a fresh terminal Stay in the [rails_project_name] folder
-
+At this point we want to create a temporary copy of the project and create a simple blog. Having separate terminal windows/tabs open for the main branch and a separate on for the worktree will enable simple moving between the environments.
+### Create a worktree
+In new terminal window/tab remain in the [rails_project_name] folder
  ```
   git worktree add [blog-create-learning]
+  cd [blog-create-learning]
 ```
-there is now a worktree created of the repo folder. This may mean moving into the [rails_project_name] folder on the blog-create-learning worktree.
+there is now a worktree setup of the repo folder. Assess the [rails_project_name] folder on the blog-create-learning worktree branch.
+
+Run the [blog-create-learning] "worktree" on another port:
+```
+bin/rails server --port 3030
+```
 ### Create a simple blog with title and text
----
 ```
 rails generate scaffold Article title:string text:text
 bin/rails db:migrate
-bin/rails server --port 3030
 ```
-on the worktree we now have a functioning blog but no tests... use this environment to create a you first test.
+make a quick change so the landing page starts at the /articles....
+- **config/routes.rb**
+  - uncomment out line 6
+```
+  root "articles#index"
+  ```
+on the worktree we now have a functioning blog but no tests... use this environment to create a you first test. Explore the behaviour from landing page to create a new blog entry and generate a integration test....
 
-When you have finished using the worktree environment it is time to delete:
+When you have finished using the worktree environment it can be removed but a branch will still exist after running the remove command:
 ```
 git worktree remove [blog-create-learning]
 ```
+if the explore branch is not needed again:
+```
+git branch -d [blog-create-learning]
+```
+
  ### Writing tests overview:
----
-For the simple blog above, here is a starting point for a functional test that can be built upon and used in your "naked" rails application.
+
+For the simple blog above, here is a starting point for a integration test that can be built upon and used as a starting point in your "naked" rails application.
 Add the following file and content:
 - **spec/features/create_a_blog_spec.rb**
 ```
@@ -130,11 +150,12 @@ feature 'creating blogs', js: true do
   end
 end
 ```
+
 run the test on command line
 ```
 rspec
 ```
-
+You have a passing test  (starting point) that can be now applied to your "naked" project environment...
 # Simple JavaScript Project
 Create the directory and npm environment
 - On the cmd line:
