@@ -2,82 +2,140 @@
 "is a safe environment where someone can practice new skills"
 ## Info
 
+
 ## Table of Content
-1. [Simple Rails Blog](#simple-rails-blog)
+1. [Simple Rails Blog](#simple-rails-blog-project)
 2. [Simple JavaScript Project](#Simple-JavaScript-Project)
+3. [Ruby Plays Tennis]()
+4. [Simple React App]()
 
-## Simple Rails Blog
 
-Create a simple rails project this will generate the the folder remove tests and set up a db
+# Simple Rails Blog Project
+TDD for beginners can be a challenge particularly in understanding the logic to create that first test. Using spikes to learn how to create a feature and then write a test can help to support the learning process. Likewise digging around in a functioning environment can also be a great tool to help understand and application and write functional tests. The following instructions step through creating a simple rails blog project with learning to write and using this to drive development the focus. Using the "git worktree" feature and some basic rails scripts to create a working rails blog application creates a learning environment to help facilitate writing tests that can be transferred and used to drive TDD in a new rails project.
+
+## Create a simple rails project framework :
+
 ```
-rails new rails_20220801_practice --database=postgresql --minimal --skip-test
+rails new [rails_project_name] --database=postgresql --minimal --skip-test
 ```
 Move into the folder generated
 ```
-cd rails_20220801_practice
-```
+cd [rails_project_name]
 git status
-rails new will ste up a git repo (ie do a git init) we want to remove this if the folder we are in is git repo already...
+```
+*remove the git init* when running the "rails new" script it will be set up up a git repo (ie do a git init) we want to remove this if the folder we working is already a git repo..
 
 ```
 rm -rf .git
 ```
-Run your rails program to dafault
+Run your rails program
 ```
 rails server
 ```
-  NOTE If postgress database is not running
- 3620  brew services list
- 3621  brew services start postgresql
 
- Create your database
+*NOTE* If the postgresql database is not running error will appear when local host in browser id opened. To start the postgresql if you are using brew
+```
+brew services start postgresql
+```
+
+Create your database
  ```
  bin/rails db:create
  ```
-### Create a test environment
+## Adding rspec and capybara test framework
+```
+rails generate rspec:install
+```
+
+Add to the following files:
+- **Gemfile**
+```
+  group :test do
+    gem 'capybara'
+    gem 'rspec-rails'
+    gem 'capybara-inline-screenshot'
+    gem 'selenium-webdriver'
+    gem 'webdrivers'
+  end
+```
+- **spec/support/capybara.rb**
+```
+require 'capybara/rspec'
+require 'capybara/rails'
+require 'capybara-inline-screenshot/rspec'
+
+Capybara.javascript_driver = :selenium_chrome
+
+Capybara::Screenshot.register_driver(:selenium_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+```
+- **spec/rails_helper.rb**
+  - uncomment out on approx line 23
+```
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+```
+
+At this point we have a basic empty rails application with a test framework created.
 
 
- ### Create a blog on a tree
+## Create a exploration a blog environment to write a test
+
+At this point we want to create a temporary copy of the project and create a simple blog. Having separate terminal windows/tabs open for the main branch and a separate on for the worktree will enable simple moving between the environments. In a fresh terminal Stay in the [rails_project_name] folder
+
+ ```
+  git worktree add [blog-create-learning]
+```
+there is now a worktree created of the repo folder. This may mean moving into the [rails_project_name] folder on the blog-create-learning worktree.
+### Create a simple blog with title and text
+---
 ```
 rails generate scaffold Article title:string text:text
 bin/rails db:migrate
+bin/rails server --port 3030
 ```
- bin/rails db:rollback
- 3628  git status
- 3629  git add .
- 3630  git stash
- 3631  git status
- 3632  git stash show -p config/routes
- 3633  git stash show -p
- 3634  git worktree
- 3635  git worktree add -h
- 3636  git status
- 3637  git worktree add -b spike-blog
- 3638  git worktree add -b spike-blog .
- 3639  cd ../../
- 3640  git status
- 3641  git worktree add Practice/rails_20220801_practice
- 3642  git worktree add Practice/rails_20220801_practice-spike
- 3643  ls
- 3644  find Practice
- 3645  cd Practice/rails_20220801_practice
- 3646  cd ..
- 3647  ls
- 3648  git status
- 3649  ls rails_20220801_practice-spike
- 3650  cd rails_20220801_practice-spike/Practice/rails_20220801_practice
- 3651  git stash pop
- 3652  git status
- 3653  bin/rails server --port 3030
- 3654  code .
- 3655  git worktree list
+on the worktree we now have a functioning blog but no tests... use this environment to create a you first test.
 
- - create test environment
- -
- - create a blog
+When you have finished using the worktree environment it is time to delete:
+```
+git worktree remove [blog-create-learning]
+```
+ ### Writing tests overview:
+---
+For the simple blog above, here is a starting point for a functional test that can be built upon and used in your "naked" rails application.
+Add the following file and content:
+- **spec/features/create_a_blog_spec.rb**
+```
+require 'rails_helper'
 
+feature 'creating blogs', js: true do
+  scenario 'new user creates a blog post' do
+    When "user visits the app" do
+      visit root_path
+    end
 
-## Simple JavaScript Project
+    Then "they see a new article link" do
+      expect(page).to have_text('New article')
+    end
+
+    When "user clicks the link" do
+      click_link('New article')
+    end
+
+    Then "user successfully navigates to a new blog entry" do
+      expect(
+        (page.current_url).last(13),
+      ).to eq '/articles/new'
+    end
+  end
+end
+```
+run the test on command line
+```
+rspec
+```
+
+# Simple JavaScript Project
 Create the directory and npm environment
 - On the cmd line:
 ```
