@@ -28,3 +28,12 @@ group :development do
   # gem "spring"
 end
 
+#rspec and capybara test suite
+group :test do
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'capybara-inline-screenshot'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+end
+
