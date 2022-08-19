@@ -300,9 +300,9 @@ create-react-app [project_folder_name]
     npm start
 ```
 
-### Set up TDD environment
+#### Set up TDD environment
 
-  - Setting Up the vitest environment with
+### Setting Up the Vitest
 
 ```
     npm add --save-dev \
@@ -315,15 +315,88 @@ create-react-app [project_folder_name]
 ```
   touch vite.config.js
 ```
+Adding to the file:
+```
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-- rename files for config application
-  renamed any JSX files from .js to .jsx
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: "jsdom",
+  },
+});
+```
 
-- running vitest
+add to package.json script section
+```
+"test": "vitest",
+    "coverage": "vitest run --coverage",
+```
+
+  - rename files for config application
+    - renamed any JSX files from .js to .jsx
+  `- src/app.js => src/app.jsx and src/app.test.js => src/app.test.jsx
+
+- to run vitest
 ```
   npm run test          # in watch mode
   npm run test -- --run # in non-watch mode
   npm run coverage
 ```
+### Set Up cypress testing
 
+Install cypress for component testing using:
+```
+  npm install --save-dev cypress
+```
+add to package.json scripts section
+```
+"cypress": "cypress open --component"
+```
+to run cypress
+```
+  npm run cypress
+```
 
+  - follow the UI instructions using the following configs:
+    - cypress.config.js needs the following to work with a react app using
+      -create-react-app
+    - framework: "create-react-app",
+    - bundler: "webpack",
+
+run in interactive mode
+```
+  npm run cypress
+```
+
+- follow the UI prompts
+  - make an app component => App
+
+- add simple test to the file cypress/component/app.cy.js
+
+```
+import App from "../../src/App";
+
+describe("App", () => {
+  it("renders", () => {
+    cy.mount(<App />);
+    cy.get(".App-link").invoke("text").should("equal", "Learn React");
+  });
+});
+```
+
+- once a test is made could run in a **/*.cy.{js,jsx,ts,tsx} file
+```
+  npx cypress run --component
+```
+
+**We have a <g>Green</g> test**
+
+  *NOTE* add to .gitignore file to avoid large git commits
+```
+  # cypress run mode
+cypress/videos
+```
