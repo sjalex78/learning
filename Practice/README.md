@@ -340,6 +340,12 @@ add to package.json script section
     - renamed any JSX files from .js to .jsx
   `- src/app.js => src/app.jsx and src/app.test.js => src/app.test.jsx
 
+  Update the src/App.test.jsx expect line
+
+```
+  expect(screen.getByText(/learn react/i)).toBeDefined();
+```
+
 - to run vitest
 ```
   npm run test          # in watch mode
@@ -399,4 +405,9 @@ describe("App", () => {
 ```
   # cypress run mode
 cypress/videos
+```
+### Want to remove/delete the project?
+```
+cd ..
+rm -rf [project_folder_name]
 ```
