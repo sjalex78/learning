@@ -2,12 +2,11 @@
 "is a safe environment where someone can practice new skills"
 ## Info
 
-
 ## Table of Content
 1. [Simple Rails Blog](#simple-rails-blog-project)
 2. [Simple JavaScript Project](#Simple-JavaScript-Project)
-3. [Ruby Plays Tennis]()
-4. [Simple React App]()
+<!-- 3. [Ruby Plays Tennis]() -->
+3. [Simple React App]()
 
 # Simple Rails Blog Project
 TDD for beginners can be a challenge particularly in understanding the logic to create that first test. Using spikes to learn how to create a feature and then write a test can help to support the learning process. Likewise digging around in a functioning environment can also be a great tool to help understand and application and write functional tests. The following instructions step through creating a simple rails blog project with learning to write and using this to drive development the focus. Using the "git worktree" feature and some basic rails scripts to create a working rails blog application creates a learning environment to help facilitate writing tests that can be transferred and used to drive TDD in a new rails project.
@@ -156,6 +155,8 @@ run the test on command line
 rspec
 ```
 You have a passing test  (starting point) that can be now applied to your "naked" project environment...
+
+
 # Simple JavaScript Project
 Create the directory and npm environment
 - On the cmd line:
@@ -285,51 +286,44 @@ constants for functions need to be declared!
 const { hello } = require('./hello');
 console.log(hello());
 ```
-
-# Simple Rails Blog Project
-follow the basic react setup instruction from [reactjs.org](https://reactjs.org/docs/create-a-new-react-app.html)
+---
+# Simple React To-Do-List Project
+  - Create react app
 
 ```
-npx create-react-app react-app-20220802-practice
-cd react-app-20220802-practice
-npm start
+create-react-app [project_folder_name]
 ```
+
+  - run the project
+  ```
+    cd [project_folder_name]
+    npm start
+```
+
 ### Set up TDD environment
 
-- setup enzyme for testing
-  yarn add --dev             \
-    enzyme                  \
-    enzyme-adapter-react-16 \
-    enzyme-to-json          \
-    prettier
+  - Setting Up the vitest environment with
 
-cat > src/setupTests.js
-    import Adapter from "enzyme-adapter-react-16";
-    import { configure } from "enzyme";
-    configure({ adapter: new Adapter() });
-
-  - **add to package.json**
-  ```
-    "jest": {
-      "snapshotSerializers": [
-        "enzyme-to-json/serializer"
-      ]
-      }
 ```
-  setup cypress for integration testing
-  ```cypress
-  yarn add --dev cypress
+    npm add --save-dev \
+      vitest \
+      @vitejs/plugin-react \
+      @vitest/coverage-c8
 ```
 
+  adding a vite config file links testing framework with react
+```
+  touch vite.config.js
+```
 
- 4122  npx create-react-app my-app\ncd my-app\nnpm start
- 4123* cd my-app
- 4124* yarn add --dev react-devtools
- 4125* code .
- 4126* import 'react-devtools'
- 4127* yarn cypress open
- 4128* cypress open
- 4129* react-devtools
- 4130* yarn react-devtools
- 4131* start
- 4132* yarn start
+- rename files for config application
+  renamed any JSX files from .js to .jsx
+
+- running vitest
+```
+  npm run test          # in watch mode
+  npm run test -- --run # in non-watch mode
+  npm run coverage
+```
+
+
