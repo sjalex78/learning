@@ -17,7 +17,7 @@
     "eject": "react-scripts eject",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "cypress": "cypress open --component"
+    "cypress": "cypress open --e2e --browser chrome"
   },
   "eslintConfig": {
     "extends": [
