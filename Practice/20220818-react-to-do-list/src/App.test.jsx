@@ -2,8 +2,8 @@ import { expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("renders learn react link", () => {
+test("renders title", () => {
   render(<App />);
 
-  expect(screen.getByText(/learn react/i)).toBeDefined();
+  expect(screen.getByTestId("title")).toHaveTextContent("Awesome To Do App!");
 });

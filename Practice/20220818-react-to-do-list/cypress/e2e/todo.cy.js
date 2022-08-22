@@ -2,8 +2,8 @@ describe('empty spec', () => {
   it('passes', () => {
     cy.visit('/')
     cy
-      .get(".App-link")
+      .get("H1")
       .invoke("text")
-      .should("equal", "Learn React")
+      .should("equal", "Awesome To Do App!")
   })
 })
