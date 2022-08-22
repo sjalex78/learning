@@ -19,4 +19,6 @@ return {
   };
 }
 
+const circle1 =createCircle(1);
+console.log(circle1);
 //duplicate the methods if you make circle 2!
