@@ -157,22 +157,20 @@ rspec
 You have a passing test  (starting point) that can be now applied to your "naked" project environment...
 
 
-# Simple JavaScript Project
-Create the directory and npm environment
-- On the cmd line:
+## Simple JavaScript Project
+- create the directory and npm environment
 ```
 mkdir [project name]
 cd [project name]
 npm init -y
 ```
 
-**Adding and running Vitest**
+- adding and running Vitest**
 
-Adding vitest
 ```
 npm add --save-dev vitest
 ```
-Open project in code editor:
+- open project in code editor
 - add the following into the package.json file "scrips" note: section  "tests" overwrite
 
 ```
@@ -182,21 +180,72 @@ Open project in code editor:
   },
 ```
 
-Running Vitest
-- On the cmd line:
+- running Vitest
 ```
 npm run coverage
 npm test
  ```
 
-**Making test file**
+### Create a simple test environment
+
+**create test file**
 - for each js file in the project a test file can be made using the following naming conventions:
 ```
 touch [filename].js
 touch [filename].test.js
 ```
 
-**Create an executable file**
+**.test.js file to follow the framework**
+
+<style>
+r { color: Red }
+o { color: Orange }
+g { color: Green }
+b { color: Blue}
+</style>
+
+- <r>Import functions:</r> from Vitest and from the js file(s) being tested
+- <o>it statement:</o> What will the expected behaviour be?
+- <g>Arrange/Act/Assert:</g> test focus' on independent, individual behaviours
+
+**example for hello world test**
+
+- in [filename].test.js
+
+---
+    import { expect, it }  from 'vitest';
+
+    import { hello } from './hello.js';
+
+    it('will say hello world with no name input', () => {
+
+      const result = hello();
+
+      expect(result).toBe('hello world');
+    });
+
+---
+
+
+**example for passing hello work**
+
+- in [filename].js
+
+note functions will need to be exported using the module.exports function.
+
+```
+
+function hello(){
+  return 'hello world';
+};
+
+module.exports ={
+  hello:hello
+  }
+
+```
+
+**extra: Create an executable file**
 This will enable developer to run a js file on the command line.
 - creating and adding content
 ```
@@ -227,58 +276,8 @@ chmod +x run.sh
 ./run.sh
 ```
 
-### WRITE A SIMPLE TEST:
 
-in the .test.js file follow the
-
-<style>
-r { color: Red }
-o { color: Orange }
-g { color: Green }
-b { color: Blue}
-</style>
-
-- <r>Import functions:</r> from Vitest and from the js file(s) being tested
-- <o>it statement:</o> What will the expected behaviour be?
-- <g>Arrange/Act/Assert:</g> test focus' on independent, individual behaviours
-
-**Example for hello world:**
-
----
-    import { expect, it  from 'vitest';
-
-    import { hello } from './hello.js';
-
-    it('will say hello world with no name input', () => {
-
-      const result = hello();
-
-      expect(result).toBe('hello world');
-    });
-
----
-
-
-### PASS THE FAILING TEST:
-
-note functions will need to be exported using the module.exports function.
-
-**Example for hello world:**
-
----
-
-```
-function hello(){
-  return 'hello world';
-};
-
-module.exports ={
-  hello:hello
-}
-```
----
-
-### EDIT THE EXECUTABLE
+**edit the executable**
 constants for functions need to be declared!
 ```
 #!/usr/bin/env node
@@ -287,7 +286,7 @@ const { hello } = require('./hello');
 console.log(hello());
 ```
 ---
-# Simple React To-Do-List Project
+## Simple React To-Do-List Project
   - Create react app
 
 ```
@@ -352,7 +351,7 @@ add to package.json script section
   npm run test -- --run # in non-watch mode
   npm run coverage
 ```
-### Set Up cypress testing
+### Set Up cypress component testing
 
 Install cypress for component testing using:
 ```
@@ -399,13 +398,53 @@ describe("App", () => {
   npx cypress run --component
 ```
 
-**We have a <g>Green</g> test**
+**We have a <g>Green component</g> test** now lets have a look at end to end testing..
+
+### Set Up cypress end to end functional testing
+
+add package.json script
+
+```
+"cypress": "cypress open --e2e --browser chrome"
+```
+
+Run commnad
+```
+npx cypress open --e2e # to set up e2e for cypress
+```
+
+also set base URl to be localhost 3000
+
+cypress.config.js add
+```
+ e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+    baseUrl: "http://localhost:3000",
+  },
+  ```
+
+Set up a test add to todo.cy.js
+```
+  describe('empty spec', () => {
+  it('passes', () => {
+    cy.visit('/')
+    cy
+      .get(".App-link")
+      .invoke("text")
+      .should("equal", "Learn React")
+  })
+})
+```
 
   *NOTE* add to .gitignore file to avoid large git commits
 ```
   # cypress run mode
 cypress/videos
 ```
+
+
 ### Want to remove/delete the project?
 ```
 cd ..
