@@ -24,9 +24,18 @@ function isValidEmail(email) {
   return regexEmail.test(String(email).toLowerCase());
 }
 
-// submit
+//check required fields
+function checkRequired(inputArr) {
+  inputArr.forEach(function (input) {
+    if (input.value.trim() === "") {
+    }
+  });
+}
+
+// Event Listener
 function submitListener(event) {
   event.preventDefault();
+  checkRequired([username, email, password, password2]);
   if (username.value === "") {
     showError(username, "Username is required");
   } else {
