@@ -2,5 +2,5 @@
 
 // console.log("hi");
 
-const { hello } = require('./bmi');
-console.log(hello());
+const { bmiCalculator } = require('./bmi');
+console.log(bmiCalculator(100,100));

@@ -1,7 +1,8 @@
-function hello() {
-  return "hello world";
+function bmiCalculator(weight, height) {
+  let calculation = weight / (height * height);
+  return Number(calculation.toPrecision(4));
 }
 
 module.exports = {
-  hello: hello,
+  bmiCalculator: bmiCalculator,
 };
