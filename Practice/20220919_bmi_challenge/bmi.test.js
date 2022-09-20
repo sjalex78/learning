@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 
-import { bmiCalculator, markHigherBMI } from "./bmi.js";
+import { bmiCalculator, markHigherBMI, resultStatement } from "./bmi.js";
 
 let john = {
   weight: 92,
@@ -23,6 +23,16 @@ it("marks the BMI of Mark is greater than John", () => {
   const result = markHigherBMI(bmiMark, bmiJohn);
   if (bmiMark > bmiJohn) true;
   expect(result).toBe(true);
+});
+
+it("states that Mark has a higher BMI than John", () => {
+  const result = resultStatement(mark, john);
+  expect(result).toBe("Mark's BMI is higher than John's!");
+});
+
+it("states that Mark has a higher BMI than John with BMI data", () => {
+  const result = resultStatementBMI(mark, john);
+  expect(result).toBe("Mark's BMI (28.3) is higher than John's (23.9)!");
 });
 
 // John:24.19
