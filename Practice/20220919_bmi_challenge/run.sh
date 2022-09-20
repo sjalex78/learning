@@ -3,4 +3,5 @@
 // console.log("hi");
 
 const { bmiCalculator } = require('./bmi');
-console.log(bmiCalculator(100,100));
+console.log("John:"+bmiCalculator(92,1.95));
+console.log("Mark:"+bmiCalculator(78,1.69));
