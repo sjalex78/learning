@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 
-import { bmiCalculator } from "./bmi.js";
+import { bmiCalculator, markHigherBMI } from "./bmi.js";
 
 let john = {
   weight: 92,
@@ -22,10 +22,7 @@ it("the BMI of Mark is greater than John", () => {
   let bmiJohn = bmiCalculator(john.weight, john.height);
 
   const result = markHigherBMI(bmiMark, bmiJohn);
-  while (bmiMark > bmiJohn) {
-    result = true;
-  }
-
+  if (bmiMark > bmiJohn) true;
   expect(result).toBe(true);
 });
 
