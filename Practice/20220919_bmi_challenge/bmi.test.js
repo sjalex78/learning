@@ -12,15 +12,14 @@ let mark = {
   height: 1.69,
 };
 
-it("the BMI of a person is calculated based on height and weight", () => {
+it("calculates the BMI of a person is calculated based on height and weight", () => {
   const result = bmiCalculator(mark.weight, mark.height);
   expect(result).toBe(27.31);
 });
 
-it("the BMI of Mark is greater than John", () => {
+it("marks the BMI of Mark is greater than John", () => {
   let bmiMark = bmiCalculator(mark.weight, mark.height);
   let bmiJohn = bmiCalculator(john.weight, john.height);
-
   const result = markHigherBMI(bmiMark, bmiJohn);
   if (bmiMark > bmiJohn) true;
   expect(result).toBe(true);
