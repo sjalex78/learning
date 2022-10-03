@@ -33,7 +33,7 @@ rails server
 
 *NOTE* If the postgresql database is not running error will appear when local host in browser id opened. To start the postgresql if you are using brew
 ```
-brew services start postgresql
+brew services start postgresql@12
 ```
 
 Create your database
