@@ -1,6 +1,11 @@
 import { expect, it } from "vitest";
 
-import { bmiCalculator, markHigherBMI, resultStatement } from "./bmi.js";
+import {
+  bmiCalculator,
+  markHigherBMI,
+  resultStatement,
+  resultStatementBMI,
+} from "./bmi.js";
 
 let john = {
   weight: 92,
