@@ -84,5 +84,10 @@ Not happy eith the nodeJS version  so add a .tool-version file and add
 
 nodejs 16.13.0
 (maybe you need to asdf add this version)
-
+npm start
 Still not happy...
+
+to the app.js file add
+import React from "react";
+ npm start
+Happy!
