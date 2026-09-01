@@ -1,0 +1,151 @@
+/*
+ * Resume look & feel — all the knobs you're likely to want are the
+ * custom properties below. Change a value here and re-run the build;
+ * you shouldn't need to touch the rules further down for routine tweaks.
+ */
+:root {
+  --font-body: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-body);
+
+  --color-text: #222222;
+  --color-muted: #5a6570;
+  --color-accent: #1f3a5c;   /* headings, rules, links */
+  --color-rule: #d7dde3;     /* thin section dividers */
+
+  --font-size-base: 10.3pt;
+  --line-height-base: 1.42;
+
+  --space-section: 14pt;     /* space above each ## section heading */
+  --space-entry: 9pt;        /* space above each ### job/entry heading */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Name */
+h1 {
+  font-family: var(--font-heading);
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: 0.5pt;
+  color: var(--color-accent);
+  margin: 0 0 2pt 0;
+}
+
+/* Tagline directly under the name, e.g. "**Full-Stack Developer**" */
+h1 + p {
+  margin: 0 0 4pt 0;
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Contact line directly under the tagline */
+h1 + p + p {
+  margin: 0 0 2pt 0;
+  font-size: 9pt;
+  color: var(--color-muted);
+}
+
+/* Optional future headshot: add `<img src="photo.jpg" class="headshot">`
+   near the top of the markdown (raw HTML is passed through) and it will
+   sit in the top-right corner without disturbing the text layout. */
+.headshot {
+  float: right;
+  width: 72pt;
+  height: 72pt;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 0 8pt 12pt;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+hr {
+  border: none;
+  border-top: 1pt solid var(--color-rule);
+  margin: var(--space-section) 0 var(--space-section) 0;
+}
+
+/* Section headings: SUMMARY, TECHNICAL SKILLS, PROFESSIONAL EXPERIENCE, ... */
+h2 {
+  font-family: var(--font-heading);
+  font-size: 12pt;
+  font-weight: 700;
+  letter-spacing: 1pt;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border-bottom: 1pt solid var(--color-accent);
+  padding-bottom: 2pt;
+  margin: 0 0 8pt 0;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Entry headings: company / role lines */
+h3 {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: var(--space-entry) 0 1pt 0;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Date/location line directly under an h3 (italic in the markdown) */
+h3 + p em,
+h3 + p > em:first-child {
+  font-style: normal;
+}
+
+h3 + p {
+  margin: 0 0 5pt 0;
+  font-size: 9.3pt;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+p {
+  margin: 0 0 7pt 0;
+}
+
+ul {
+  margin: 0 0 8pt 0;
+  padding-left: 14pt;
+}
+
+li {
+  margin: 0 0 3.5pt 0;
+  padding-left: 1pt;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+li::marker {
+  color: var(--color-accent);
+}
+
+strong {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* Keep a heading from being stranded at the bottom of a page */
+h2, h3 {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}

@@ -1,0 +1,6 @@
+[tools]
+node = "22"
+
+[tasks.pdf]
+description = "Export the resume to a dated PDF in resume/dist/"
+run = "npm install --silent && node build-resume.mjs"

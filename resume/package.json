@@ -1,0 +1,13 @@
+{
+  "name": "sarah-alexander-resume",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Build script for exporting Sarah Alexander's resume to a styled, dated PDF",
+  "scripts": {
+    "pdf": "node build-resume.mjs"
+  },
+  "dependencies": {
+    "md-to-pdf": "^5.2.5"
+  }
+}
